@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="ma" class="ma.rick.Man" init-method="myInit">
+        <property name="name" value="马大师"/>
+    </bean>
+    <!--配置Bean后处理器，处理所有的bean，可以无须指定id属性-->
+    <bean class="ma.rick.MyBeanPostProcessor" />
+    <bean class="ma.rick.MyBeanPostProcessor" />
+    <!--Bean后处理器的用途：BeanNameAutoProxyCreator和DefaultAdvisorAutoProxyCreator-->
+    
+    <!--配置Spring容器后处理器，处理容器用的，可以无须指定id属性-->
+    <bean class="ma.rick.MyBeanFactoryPostProcessor" />
+    <!--容器后处理器的用途：
+            PropertyPlaceHolderConfigurer
+            PropertyOverrideConfigurer
+            CustomAutowireConfigurer
+            CustomScopeconfigurer
+    -->
+    
+</beans>

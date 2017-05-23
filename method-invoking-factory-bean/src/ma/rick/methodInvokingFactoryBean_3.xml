@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    
+    <!--引入bean id="sysProps"-->
+    <import resource="methodInvokingFactoryBean.xml"/>
+    
+    <!--
+        public synchronized boolean isEmpty()  非静态方法
+       在spring配置文件中实现对实例的方法调用！
+       操作已有bean实例
+       isEmpty方法有返回值,没有参数       
+    -->    
+    <bean id="result3"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="sysProps" />
+        <property name="targetMethod" value="isEmpty" />
+    </bean>
+             
+    <!--方法有返回值，可以考慮用factory-method-->
+    <bean id="result3_z" factory-bean="sysProps" factory-method="isEmpty"/>
+         
+    <!--操作bean实例，有参数，有返回值的方法
+    public String getProperty(String string)-->
+    <bean id="result_os" factory-bean="sysProps" factory-method="getProperty">
+        <constructor-arg index="0" type="java.lang.String">  
+            <value>os.name</value>  
+        </constructor-arg>  
+    </bean>
+       
+    <bean id="result_java_version" factory-bean="sysProps" factory-method="getProperty">
+        <constructor-arg type="java.lang.String" value="java.version" />  
+    </bean>
+    
+	
+</beans>

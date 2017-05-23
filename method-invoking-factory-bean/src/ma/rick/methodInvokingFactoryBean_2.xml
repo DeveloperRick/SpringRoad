@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    
+    <!--引入bean id="sysProps"-->
+    <import resource="methodInvokingFactoryBean.xml"/>
+   
+    <bean id="sysProps22" parent="sysProps" /> 
+    
+    <!--
+      使用bean 实例的方法(instance method)返回值注入，通过 MethodInvokingFactoryBean 完成，
+        但必须指定以下两个属性。
+        targetObject: 确定目标 bean，该 bean 可以是容器中己有的 bean，也可是嵌套 bean。
+        targetMethod: 确定目标方法，确定通过目标 bean 的哪个方法返回值注入。
+       
+       在spring配置文件中实现对实例的方法调用！       
+    -->
+    
+    <!--sysProps.putAll(new Map);
+    public synchronized void putAll(Map<? extends K, ? extends V> map) 非静态方法
+    操作已有bean实例<bean id="sysProps22"    
+    putAll没有返回值，没有设置bean id
+    -->
+    
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject">
+            <ref bean="sysProps22" />
+        </property>
+        <property name="targetMethod">
+            <value>putAll</value>
+        </property>
+        <property name="arguments">
+            <props>
+                <prop key="site">https://github.com/DeveloperRick</prop>
+            </props>
+        </property>
+    </bean>
+       
+</beans>

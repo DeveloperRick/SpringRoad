@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"
+       default-autowire="byName"
+>
+    <bean id="computer1" class="ma.rick.Computer" autowire="byName"></bean>
+     
+     <!--Indicates whether or not this bean should be considered when looking for matching candidates to satisfy another bean's autowiring requirements. Note that this does not affect explicit references by name, which will get resolved even if the specified bean is not marked as an autowire candidate.-->
+    <bean id="computer4" class="ma.rick.Computer" autowire-candidate="false">
+        <property name="host" ref="host" />  
+        <property name="display" ref="display" />  
+    </bean>
+     
+    <bean id="host" class="ma.rick.Host"></bean>
+    <bean id="display" class="ma.rick.Display"></bean>  
+    
+</beans>

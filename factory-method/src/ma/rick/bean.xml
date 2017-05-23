@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+	
+	<!-- 静态方法return Person , 直接指定class -->
+	<bean id="dog1" class="ma.rick.BeingFactory" factory-method="getBeing">
+		<!-- 工厂方法参数用constructor-arg -->
+		<constructor-arg value="dog"/>		
+		<!-- 通过setter()方法 注入 属性 用property -->
+		<property name="msg" value="This is Dog007" />		
+	</bean>	
+	<bean id="cat1" class="ma.rick.BeingFactory" factory-method="getBeing">
+		<!-- 工厂方法factory-method设置参数用constructor-arg -->
+		<constructor-arg value="cat"/> 	
+	</bean> 
+	
+	
+	
+</beans>

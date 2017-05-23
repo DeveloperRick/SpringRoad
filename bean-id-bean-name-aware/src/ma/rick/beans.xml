@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <!--让Bean对Name有知觉
+        作用：让Bean获取自己在BeanFactory配置中的名字（根据情况是id或者name）。
+        通过实现BeanNameAware接口，接口中就一个方法setBeanName()
+    -->
+    <bean id="id007" name="name007" class="ma.rick.Baby"/>
+    <bean name="name008" class="ma.rick.Baby"/>
+    <bean id="cat9" class="ma.rick.Cat" init-method="sayHi"/>
+</beans>

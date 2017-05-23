@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+      
+	<bean id="mazda-gates" class="ma.rick.Taxi" scope="prototype">
+		<property name="name" value="mazda-gates-prototype" />		 
+	</bean>   
+	<bean id="mazda-bill" class="ma.rick.Taxi" scope="prototype">
+		<property name="name" value="mazda-bill-prototype" />		 
+	</bean>   
+	
+	<bean id="mazda1" class="ma.rick.Taxi" scope="prototype">
+		<property name="name" value="mazda1-prototype" />		 
+	</bean>   
+	<bean id="mazda2" class="ma.rick.Taxi" scope="prototype">
+		<property name="name" value="mazda2-prototype" />		 
+	</bean>   
+	
+	<!--lookup-methond实现抽象类中抽象方法
+	    对于method在代码中的签名有下面的标准：
+	    <public|protected> [abstract] <return-type> theMethodName(no-arguments);
+	    public|protected要求方法必须是可以被子类重写和调用的；
+	    abstract可选，如果是抽象方法，CGLIB的动态代理类就会实现这个方法，
+		如果不是抽象方法，就会覆盖这个方法，所以没什么影响；
+	    return-type就是non-singleton-bean的类型咯，当然可以是它的父类或者接口。
+	    no-arguments不允许有参数。        
+	-->	 	
+	      
+	<!--lookup-methond用于property/setterXXX()注入????待研究-->
+	<bean id="Gates" class="ma.rick.Sydneyer" scope="singleton" >
+		<constructor-arg name="name" value="Gates-singleton"/>
+		<property name="car" ref="mazda-gates" />	
+		<lookup-method name="buyCar" bean="mazda1"/>
+	</bean>
+         	<!--lookup-methond用于constructor-arg构造函数注入????待研究-->
+	<bean id="Bill" class="ma.rick.Sydneyer" scope="singleton" >
+		<constructor-arg name="name" value="Bill-singleton"/>
+		<constructor-arg name="car" ref="mazda-bill" />	
+		<lookup-method name="buyCar" bean="mazda2"/>
+	</bean>
+</beans>

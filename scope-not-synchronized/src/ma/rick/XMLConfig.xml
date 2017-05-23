@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <!--scope=prototype,getBean每次一辆新车-->
+    <!--Prototype: 每次对bean的请求都会创建一个新的bean实例。
+    二者选择的原则：有状态的bean都使用Prototype作用域-->
+    <bean id="honda" class="ma.rick.Car" scope="prototype">
+        <property name="name" value="honda-prototype" />		 
+    </bean>        
+    <!--scope默认singleton,getBean每次返回同一个实例-->
+    <!--Singleton: spring容器只存在一个共享的bean实例，默认的配置。
+    而对无状态的bean则应该使用singleton作用域。-->
+    <bean id="Jim" class="ma.rick.Australian" scope="singleton" >
+        <constructor-arg name="name" value="Jim-singleton"/>
+        <property name="car" ref="honda" />		 
+    </bean>
+        
+    <bean id="byd" class="ma.rick.Car" scope="singleton">
+        <property name="name" value="byd-singleton" />		 
+    </bean>        
+    <bean id="Tom" class="ma.rick.Australian" scope="prototype" >
+        <constructor-arg name="name" value="Tom-prototype"/>
+        <property name="car" ref="byd" />		 
+    </bean>
+    
+    <bean id="toyuta" class="ma.rick.Car" scope="singleton">
+        <property name="name" value="toyuta-singleton" />		 
+    </bean>        
+    <bean id="Jack" class="ma.rick.Australian" scope="singleton" >
+        <constructor-arg name="name" value="Jack-singleton"/>
+        <property name="car" ref="toyuta" />		 
+    </bean>
+      
+    <bean id="jeep" class="ma.rick.Car" scope="prototype">
+        <property name="name" value="jeep-prototype" />		 
+    </bean>        
+    <bean id="Lucy" class="ma.rick.Australian" scope="prototype" >
+        <constructor-arg name="name" value="Lucy-prototype"/>
+        <property name="car" ref="jeep" />		 
+    </bean>
+    
+    
+    
+    
+    
+    
+</beans>

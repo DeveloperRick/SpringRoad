@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+
+       xmlns:util="http://www.springframework.org/schema/util"
+       
+       xmlns:p="http://www.springframework.org/schema/p"  
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd 
+
+            http://www.springframework.org/schema/util 
+            http://www.springframework.org/schema/util/spring-util.xsd"
+>
+
+    
+    
+    <!-- 配置Xiaoqiang实例，其实现类是Man 
+         List schools;
+         Map scores;
+         Properties health;
+         Set dogs;
+         String[] books;
+         int age;
+         Son son;
+         String name;
+    -->  
+    
+    <bean id="Xiaoqiang" class="ma.rick.Man"  
+          p:son-ref="qiang.son" 
+          p:name="光头强" 
+          p:age-ref="qiang.age" 
+          p:schools-ref="qiang.schools"  
+          p:dogs-ref="qiang.dogs" 
+          p:scores-ref="qiang.scores">      
+         
+        <!--util:简化不了的部分-->
+        <property name="health">
+            <props>
+                <prop key="血压">正常</prop>
+                <prop key="身高">177</prop>
+            </props>
+        </property>
+        
+         <property name="books">
+            <list>
+                <value>百科全书</value>
+                <value>大辞海</value>
+                <value>生活小常识</value>
+            </list>
+        </property>
+    </bean>  
+    
+    <!-- 使用util：constant将 指定类的静态Field暴露出来 -->  
+    <util:constant id="qiang.age" static-field="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>  
+   
+     
+    <!-- 使用util:list 定义一个List对象 -->  
+    <util:list id="qiang.schools" list-class="java.util.LinkedList">  
+        <!-- 每个value ref bean都配置一个List元素 -->  
+        <value>小学</value>  
+        <value>中学</value>  
+        <value>大学</value>  
+    </util:list>  
+    <!-- 使用util:set定义一个Set对象 -->    
+    <util:set id="qiang.dogs" set-class="java.util.HashSet">  
+        <bean class="ma.rick.Dog" >
+            <constructor-arg name="name" value="dog003"/>
+        </bean>
+        <ref bean="dog001" />   
+    </util:set>  
+    <!-- 使用util：map定义一个Map对象 -->  
+    <util:map id="qiang.scores" map-class="java.util.TreeMap">  
+        <entry>
+            <key>
+                <value>数学</value>
+            </key>
+            <value>88</value>
+        </entry>
+               
+        <!--简化写法-->
+        <entry key="语文" value="800"/>  
+        <entry key="英语" value="82"/>
+        <entry key="政治" value="80"/>      
+    </util:map>  
+        
+     
+    <bean id="dog001" class="ma.rick.Dog"/>    
+    <bean id="qiang.son" class="ma.rick.Son" p:age="二百五" />  
+
+     <!-- 使用property-path 将指定Bean的指定属性暴露出来  -->  
+    <util:property-path id="test.books" path="Xiaoqiang.books"/>  
+    <util:property-path id="test.health" path="Xiaoqiang.health"/>  
+    
+    <!-- 使用properties加载指定的资源 -->  
+    <util:properties id="test.message" location="classpath:ma/rick/message.properties"/>     
+    <util:properties id="test.message_zh" location="classpath:ma/rick/message_zh_CN.properties"/>     
+    <util:properties id="test.message_en" location="classpath:ma/rick/message_en_US.properties"/>     
+    
+</beans>

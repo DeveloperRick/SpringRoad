@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"
+       default-init-method="myInit" default-destroy-method="myDestroy"
+> 
+    <!--xml标签beans属性default-init-method和default-destroy-method指定方法，对所有bean生效-->
+    <bean id="zhao" class="ma.rick.Chinese" lazy-init="true">
+        <property name="name" value="zhao da"/>
+    </bean>
+        
+    <bean id="qian" class="ma.rick.Person" lazy-init="true">
+        <property name="name" value="qian xiao"/>
+    </bean> 
+</beans>

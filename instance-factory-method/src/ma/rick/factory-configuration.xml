@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"> 
+	<!-- 工厂 需要先实例化-->
+	<bean id="personHome" class="ma.rick.PersonFactory"/>
+	
+	<!-- 非静态方法return Person -->
+	<bean id="Wang" factory-bean="personHome" factory-method="gainPerson">
+		<!-- 工厂方法参数用constructor-arg -->
+		<constructor-arg value="chinese" />
+	</bean>
+
+	<!-- 非静态方法return Person -->
+	<bean id="Lucy" factory-bean="personHome" factory-method="gainPerson">
+		<!-- 工厂方法factory-method设置参数用constructor-arg -->
+		<constructor-arg value="american" />
+		<!-- age会默认为0 -->
+	</bean>
+	
+ 
+	<bean id="Tom" factory-bean="personHome" factory-method="gainPerson">
+		<!-- 参数 -->
+		<constructor-arg value="american" />		
+		<!-- 通过setter()方法 注入 属性 用property -->
+		<property name="age" value="18" />
+	</bean>
+	
+
+</beans>

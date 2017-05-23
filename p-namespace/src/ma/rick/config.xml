@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+
+
+
+       xmlns:p="http://www.springframework.org/schema/p"
+
+>
+    <bean id="display1" class="ma.rick.Display"  />
+    <bean id="host1" class="ma.rick.Host"  />
+    <bean id="Server001" class="ma.rick.Computer" p:brand="ThinkCetre" p:display-ref="display1" p:host-ref="host1" />
+    <!--用-ref表示引用bean-->
+    <!--如果bean属性名是以-ref结尾那么采用p名称空间会导致冲突-->
+</beans>

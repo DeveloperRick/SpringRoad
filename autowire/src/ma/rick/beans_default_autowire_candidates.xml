@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"
+       default-autowire-candidates="computer1*"
+       default-autowire="byName"
+       
+> 
+    <!-- default-autowire-candidates应该是候选者，即匹配则被包含。不匹配的排除在外。-->
+    
+    <bean id="computer1" class="ma.rick.Computer" autowire="byName"></bean>
+    
+    <bean id="computer2" class="ma.rick.Computer" autowire="byType">
+        <property name="host" ref="host" />  
+        <property name="display" ref="display" />  
+    </bean>
+    
+    <bean id="computer3" class="ma.rick.Computer" autowire="default">
+        <property name="host" ref="host" />  
+        <property name="display" ref="display" />  
+    </bean>
+    
+    <bean id="computer11" class="ma.rick.Computer"></bean>
+    <bean id="computer12" class="ma.rick.Computer"></bean>
+    <bean id="computer13" class="ma.rick.Computer"></bean>
+    
+    <bean id="computer4" class="ma.rick.Computer" autowire-candidate="false">
+        <property name="host" ref="host" />  
+        <property name="display" ref="display" />  
+    </bean>
+     
+    <bean id="host" class="ma.rick.Host"></bean>
+    <bean id="display" class="ma.rick.Display"></bean>  
+    
+</beans>

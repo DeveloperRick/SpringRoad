@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+    
+    <bean id="dog001" class="ma.rick.Dog">
+        <constructor-arg name="name" value="dog001"/>
+    </bean>
+    <bean id="Rick" class="ma.rick.Man">
+        <property name="schools">
+            <list>
+                <value>小学</value>
+                <value>中学</value>
+                <value>大学</value>
+            </list>
+        </property>
+        <property name="scores">
+            <map>
+                
+                <entry>
+                    <key>
+                        <value>数学</value>
+                    </key>
+                    <value>88</value>
+                </entry>
+                
+                <!--简化写法-->
+                <entry key="英语" value="82"/>
+                <entry key="政治" value="80"/>
+                <!--value-ref-->
+                <entry key="值是一个Bean" value-ref="dog001"/>
+                <!--简化写法-->
+                <entry key-ref="dog001" value="Key引用一条小狗"/>
+                 
+
+            </map>
+        </property>
+        <property name="health">
+            <!--Properties类型的Key和Value都只能是String
+            配置xml用<props>标签-->
+            <props>
+                <prop key="血压">正常</prop>
+                <prop key="身高">177</prop>
+            </props>
+        </property>
+        <property name="dogs">
+            <set>
+                <value>字符串小猫</value>
+                <bean class="ma.rick.Dog" >
+                    <constructor-arg name="name" value="dog003"/>
+                </bean>
+                <ref bean="dog001" />
+            </set>
+        </property>
+        <property name="books">
+            <list>
+                <value>百科全书</value>
+                <value>大辞海</value>
+                <value>生活小常识</value>
+            </list>
+        </property>
+            
+    </bean>
+    
+</beans>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="tom" class="ma.rick.Child">
+        <!--构造函数中引用全局bean-->
+        <constructor-arg name="friend" ref="zhao" />  <!--在全局范围内搜索bean-->     
+        <constructor-arg name="name" value="汤汤姆" />      
+    </bean>
+    
+    
+    <bean id="bill" class="ma.rick.Child">
+        <property name="name" value="比尔" />            
+        <property name="friend" ><!--spring 4.0 不再支持ref local标签-->
+            <ref bean="zhao"/>
+        </property>             
+    </bean>
+    
+    
+    <bean id="lucy" class="ma.rick.Child">
+        <property name="name" value="露西" />            
+        <property name="friend" > 
+            <!--嵌套bean 可以没有id 其他bean不能访问-->
+            <bean class="ma.rick.Child">
+                <property name="name" value="莉莉" />            
+                <property name="friend" > 
+                    <ref bean="zhao"/>
+                </property>             
+            </bean>
+        </property>             
+    </bean>
+              
+      
+</beans>

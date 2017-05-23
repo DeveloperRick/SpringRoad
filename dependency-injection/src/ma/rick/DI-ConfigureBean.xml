@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+	<bean id="chinese" class="ma.rick.Chinese"  scope="singleton">    
+		<!--setter()函数注入属性用property-->
+		<property name="axe" ref="stoneAxe" />
+	</bean>
+    
+        <!--prototype 原型，雏形，蓝本;-->
+	<bean id="stoneAxe" class="ma.rick.StoneAxe" scope="prototype"></bean>
+    
+	<bean id="steelAxe" class="ma.rick.SteelAxe"></bean>
+    
+	<bean id="xiaoming" class="ma.rick.American" >
+		<!--构造函数传参数用constructor-arg-->
+		<constructor-arg ref="steelAxe" index="0"/>
+		<constructor-arg   value="XiaoMing"  index="1"/> 
+	</bean>
+	<bean id="xiaoqiang" class="ma.rick.American" >
+		<constructor-arg ref="steelAxe" /> 
+	</bean>
+</beans>

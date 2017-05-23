@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <!--Set a fully qualified static method name to invoke。-->
+   
+   <!--取返回值注入bean
+    调用静态方法可用property name="staticMethod"-->
+    <bean id="sysProps_x"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="java.lang.System.getProperties" />
+    </bean> 
+ 
+   <!--以上情况可以用factory-method，调用类的静态方法时用class-->   
+    <bean id="sysProps_y" class="java.lang.System" factory-method="getProperties"/>
+	
+    
+</beans>

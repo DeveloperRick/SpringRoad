@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+
+    <bean id="wang" class="ma.rick.Child">
+        <property name="name" >
+            <value>王小棒</value>
+        </property>        
+        <property name="friend" ref="zhao"/>         
+    </bean>
+
+    <bean id="li" class="ma.rick.Child">
+        <property name="name" >
+            <value>李明</value>
+        </property>        
+        <property name="friend" >
+            <ref bean="zhao"/><!--spring 4.0 不再支持ref local标签-->
+        </property>             
+    </bean> 
+        
+    <bean id="zhao" class="ma.rick.Child">
+        <property name="name" value="赵亮亮"/>
+    </bean>
+        
+    
+</beans>

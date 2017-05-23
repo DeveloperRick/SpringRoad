@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"> 
+    <!--xml标签bean属性init-method和destroy-method指定方法-->
+    <bean id="qiang" class="ma.rick.Person" init-method="myInit" destroy-method="myDestroy"/> 
+    <!--实现接口InitializingBean::afterPropertiesSet()，但是污染代码-->
+    <bean id="zhang" class="ma.rick.Chinese"/> 
+    <!--先执行接口方法InitializingBean::afterPropertiesSet()，DisposableBean::destroy()
+    后执行xml属性定义方法init-method="myInit" destroy-method="myDestroy"-->
+    <bean id="ma" class="ma.rick.Chinese" init-method="myInit" destroy-method="myDestroy"/>   
+</beans>

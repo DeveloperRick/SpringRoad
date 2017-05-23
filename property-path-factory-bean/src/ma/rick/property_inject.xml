@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+ 
+    <!--调用getter方法：使用PropertyPathFactoryBean-->
+    <bean id="person001" class="ma.rick.Person" scope="prototype">  
+        <property name="age" value="30"/>
+        <property name="son">  
+            <bean class="ma.rick.Son">  
+                <property name="age" value="16"/> 
+            </bean>  
+        </property>  
+    </bean>  
+    
+    <!--如下将会将person的属性son的属性age传入son1实例的age属性-->  
+    <bean id="son1" class="ma.rick.Son">  
+        <property name="age">  
+            <!--以下是访问bean属性的简单方式,
+            class="org.springframework.beans.factory.config.PropertyPathFactoryBean"
+            本质是：工厂bean调用getter()方法
+            这样可以将person这个bean的age属性赋值给son1这个bean的age属性-->             
+            <bean id="person001.son.age"
+             class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>  
+        </property>  
+    </bean>  
+      
+    <!-- 以下将会获得结果son,
+    它将是person bean的son的数值
+    <property name="targetBeanName">:person001
+    <property name="propertyPath">:son 
+    -->  
+    <bean id="son2" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">  
+        <property name="targetBeanName" value="person001"/>  
+        <property name="propertyPath" value="son"/>  
+    </bean>  
+      
+    <!-- 以下将会获得结果16,它将是person bean的son的age属性
+    <property name="targetBeanName">:person001
+    <property name="propertyPath">:son.age
+    -->  
+    <bean id="son3age" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">  
+        <property name="targetBeanName" value="person001" />  
+        <property name="propertyPath" value="son.age" />   
+        
+    </bean>  
+      
+      
+    <!-- 以下会获得结果为33 ,它将是获得该bean的内部bean的age属性-->  
+    <bean id="son4age" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">  
+        <property name="targetObject"> 
+            <!--自建内部bean-->
+            <bean class="ma.rick.Person">  
+                <property name="age">
+                    <value>33</value>
+                </property>  
+            </bean>  
+            
+        </property>  
+        <!--可以获得配置文件中的内部bean的属性，但是好像没啥用-->
+        <property name="propertyPath">
+            <value>age</value>
+        </property>  
+        
+    </bean>  
+    
+</beans> 
+

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    
+    
+    <!--调用类或对象的Filed值：使用FiledRetrievingFactoryBean
+      使用FieldRetrievingFactoryBean获取Field值时，必须指定如下两个属性：
+        targetClass或targetObject：分别用于指定Field值所在的目标类或目标对象。如果需要获得的Field是静态的，则使用targetClass指定目标类；如果Field是非静态的，则使用targetObject指定目标对象
+        targetField：指定目标类或目标对象的Field名
+    -->
+    <bean id="son001" class="ma.rick.Son">
+        <property name="age">
+            <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+                  class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+        </property>
+    </bean>
+     
+     
+     
+    <bean id="age002" 
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <!-- targetClass指定Field所在的目标类 
+               public interface Connection extends Wrapper, AutoCloseable
+        -->
+        <property name="targetClass" value="java.sql.Connection" />
+        <!-- targetField指定Field名 
+                public static final int TRANSACTION_READ_COMMITTED = 2;
+                public static final int TRANSACTION_SERIALIZABLE = 8;
+        -->
+        <property name="targetField" value="TRANSACTION_SERIALIZABLE" />
+    </bean>
+     
+          
+     
+    <bean id="myField" 
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField" value="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
+    </bean>
+     
+          
+     
+    <bean id="son003" class="ma.rick.Son">
+        <property name="age">
+            <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">  
+                <property name="targetClass" value="java.sql.Connection" />                
+                <property name="targetField" value="TRANSACTION_READ_COMMITTED" />
+            </bean>
+        </property>
+    </bean>
+   
+      
+      
+    <bean id="son004" class="ma.rick.Son">
+        <constructor-arg name="age" value="111" />
+    </bean>
+     
+     
+     
+    <!--如果Field是非静态的，则使用targetObject指定目标对象    
+    实验失败！！ 
+    <bean id="age005" 
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetObject" value="son004" />               
+        <property name="targetField" value="age" />
+    </bean>
+    -->    
+            
+    <bean id="java.sql.Connection.TRANSACTION_NONE" name="age006"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+    
+    
+    
+    <bean id="person007" class="ma.rick.Person">
+        <property name="age" value="40" />
+        <property name="son">
+            <!-- 使用嵌套Bean定义属性值 -->
+            <bean class="ma.rick.Son">
+                <property name="age" value="12" />
+            </bean>
+        </property>
+    </bean>
+
+
+
+    <bean id="son008" class="ma.rick.Son">
+        <!-- age属性不是直接注入，而是将person中的son的age属性赋值给son2的age属性 -->
+        <property name="age">
+            <!-- 注意这里使用的是PropertyPathFactoryBean -->
+            <!--PropertyPathFactoryBean用来获得目标Bean的属性值
+            （实际上就是调用getter方法返回的值）-->
+            <bean id="person007.son.age" 
+                  class="org.springframework.beans.factory.config.PropertyPathFactoryBean" />
+        </property>
+    </bean>
+
+    
+   
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="steelAxe1" class="ma.rick.SteelAxe" />
+    <bean id="stoneAxe01" class="ma.rick.StoneAxe" />
+    <bean id="stoneAxe02" class="ma.rick.StoneAxe" />
+	
+    <!--默认为singleton Bean会被ApplicationContext默认初始化-->
+    <bean id="xiaoming" class="ma.rick.Chinese">
+        <property name="axe" ref="steelAxe1" />
+    </bean>
+        
+    <!--默认scope="singleton"Bean会被ApplicationContext初始化-->
+    <!--即使没有id，即使没有被调用getBean-->	
+    <bean class="ma.rick.English" scope="singleton">
+        <property name="axe" ref="stoneAxe01" />
+    </bean>
+
+    <!--指定Bean为abstract，抽象Bean-->
+    <!--用于被继承-->
+    <!--作为其他Bean的模板使用-->
+    <!--可以防止Bean模板被ApplicationContext默认初始化-->	
+    <bean id="AmericanTemplate" class="ma.rick.American" abstract="true" >
+        <property name="axe" ref="stoneAxe02" />
+        <property name="age" value="30" />
+    </bean>
+    <!--永远不能企图实例化abstract Bean-->
+    <!--不能被getBean，AmericanTemplate不能被用于注入其他Bean的属性property-->
+    <!--语法允许可以没有class属性-->
+    <bean id="AmericanTemplate2" abstract="true" >
+    </bean>
+        
+    <!--Bean的继承-->
+    <!--从普通Bean继承-->
+    <bean id="xiaoqiang" parent="xiaoming" />
+    <!--从abstract Bean继承-->    
+    <bean id="Petter" parent="AmericanTemplate" />
+    
+    <bean id="Jerry" parent="AmericanTemplate" >
+        <!--属性覆盖-->
+        <property name="axe" ref="steelAxe1" />
+        <property name="age" value="22" />
+    </bean>
+	
+    <!--Spring Bean Inheritance是对象实例的属性配置继承，不同于Java类的继承-->
+    <!--Spring Bean Inheritance可以是完全不相关的Jave Class，只继承同名axe和age的属性值-->
+    <bean id="Tom" parent="AmericanTemplate" class="ma.rick.Cat">
+        <property name="age" value="2" />
+    </bean>
+	
+        
+        
+</beans>

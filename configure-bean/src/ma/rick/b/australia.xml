@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="petter" class="ma.rick.Schoolchild">
+        <property  name="name" value="皮特" />                      
+        <!--组合属性直接赋值 xxx.xx--> 
+        <!--必须提供getter()方法！！-->
+        <property name="captain.name" value="皮特鲁鲁" />         
+        <!--嵌套bean 可以没有id 其他bean不能访问-->    
+        <replaced-method name="whoIsFriend" replacer="replacer" />
+    </bean>
+    
+    <bean id="replacer" class="ma.rick.MyReplacer" />
+                
+    <bean id="little" class="ma.rick.Schoolchild">
+        <property  name="name" value="大头儿子" />   
+        <property name="captain.name" value="小头爸爸" />           
+        <replaced-method name="whoIsFriend" replacer="replacer" />
+    </bean>
+    
+</beans>

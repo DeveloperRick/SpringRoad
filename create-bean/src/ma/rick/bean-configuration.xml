@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <bean id="xiaoming" class="ma.rick.Baby" depends-on="axe01">
+        <property name="axe" ref="axe01" />
+    </bean>
+    <bean id="axe01" class="ma.rick.Axe" />
+        
+    <!--static-->
+    <bean id="xiaoqiang" class="ma.rick.BabyHome" factory-method="gainInstance"></bean>
+         
+    <!--static BabyHome gainInstance(int i)-->
+    <bean id="daqiang" class="ma.rick.BabyHome" factory-method="gainInstance">
+        <constructor-arg name="i" value="999"/>
+    </bean>
+    <bean id="guangtouqiang" class="ma.rick.BabyHome" factory-method="gainInstance">
+        <constructor-arg name="i" value="666"/>
+    </bean>
+    
+    <!-- static BabyHome gainInstance(Axe axe) -->
+    <bean id="xiaogang" class="ma.rick.BabyHome"
+          factory-method="gainInstance" depends-on="axe007">
+        <constructor-arg ref="axe007"/>
+    </bean>
+    <bean id="axe007" class="ma.rick.Axe" />
+    
+    <!--非静态方法--> 
+    <bean id="axeBox" class="ma.rick.AxeBox" />
+    <bean id="axe008" factory-bean="axeBox" factory-method="gainAxeInstance" />
+    
+    <bean id="babyHome" class="ma.rick.BabyHome" />
+    <bean id="xuanxuan"  factory-bean="babyHome" factory-method="getBabyInstance">
+        <constructor-arg ref="axe008"/>
+    </bean>
+    
+</beans>

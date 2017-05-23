@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    
+    <!--通过MethodInvokingFactory Bean类，可注入方法返回值。 
+    MethodInvokingFactoryBean用来获得某个方法的返回值，
+    该方法既可以是静态方法，也可以是实例方法。
+    该方法的返回值可以注入bean实例属性，也可以直接定义成bean实例。-->    
+    <bean id="sysProps"
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="java.lang.System"/>
+        <property name="targetMethod" value="getProperties" />
+    </bean> 
+
+</beans>

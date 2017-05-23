@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+"
+       default-autowire="byName"
+>
+    <bean id="computer1" class="ma.rick.Computer" autowire="byName"></bean>
+    <bean id="computer2" class="ma.rick.Computer" autowire="byType"></bean>
+    <bean id="computer3" class="ma.rick.Computer" autowire="default"></bean>
+     
+    <bean id="host" class="ma.rick.Host"></bean>
+    <bean id="display" class="ma.rick.Display"></bean>  
+    
+</beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+">
+    <!--继承parent bean中集合属性的值，用property举例-->
+    <bean id="parent-bean" class="ma.rick.merge.AddressBook">
+        <property name="emails">
+            <props>
+                <prop key="admin">admin@qq.com</prop>
+                <prop key="support">support@qq.com</prop>
+                <prop key="ceo">ceo@qq.com</prop>
+            </props>
+        </property>
+    </bean>
+    <!--parent继承Bean-->
+    <bean id="child" parent="parent-bean">
+        <!--属性可继承也可覆盖-->
+        <property name="emails">
+            <!--设置merge="true", props会自动合并-->
+            <props merge="true">
+                <prop key="manager">manager@vip.qq.com</prop>
+                <prop key="developer">developer@vip.qq.com</prop>
+                <!--与parent-bean的prop合并时，key相同情况下自动覆盖-->
+                <prop key="admin">administrator@vip.qq.com</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
