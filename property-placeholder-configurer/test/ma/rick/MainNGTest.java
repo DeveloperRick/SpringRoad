@@ -23,7 +23,7 @@ public class MainNGTest {
 		String[] args = null;
 		Main.main(args);
 		// TODO 检查生成的测试代码并删除失败的默认调用。
-		fail("\u6d4b\u8bd5\u7528\u4f8b\u4e3a\u539f\u578b\u3002");
+		//fail("\u6d4b\u8bd5\u7528\u4f8b\u4e3a\u539f\u578b\u3002");
 	}
 	
 }
